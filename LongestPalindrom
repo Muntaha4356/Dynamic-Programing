@@ -1,0 +1,54 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if (s.length() <= 1) {
+    return s;
+} if(s.length()>=1000){
+    s = s.substr(0, 1000);
+}
+
+    string minimum_Palindrom = ""; 
+    minimum_Palindrom += s[0]; 
+    
+
+	string temp_string="";
+	for(int i=0; i<s.length(); i++){
+		temp_string += s[i];
+
+		int count=0;
+		count+=1;
+//		cout<<count<<endl;
+		for (int j=s.length()-1; j>i; j--){
+			if (s[i] == s[j]){
+				temp_string = s.substr(i, j - i + 1);
+
+				bool answer = isPalindrom(temp_string);
+
+				if(answer){
+
+					if (temp_string.length() > minimum_Palindrom.length()) {
+						minimum_Palindrom = temp_string;
+					}
+					break;
+				}
+			}
+		}
+		temp_string="";
+	}
+
+	return minimum_Palindrom;
+    }
+
+    bool isPalindrom(string s){
+        int start_index = 0;
+        int end_index = s.length() - 1;
+        while (start_index < end_index) {
+            if (s[start_index] != s[end_index]) {
+                return false;
+            }
+            start_index++;
+            end_index--;
+        }
+        return true;
+    }
+};
